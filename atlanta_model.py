@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
+from torchvision.models import ResNet50_Weights, ResNet101_Weights
 import functools
 
 
@@ -11,7 +12,14 @@ class Resnet(nn.Module):
     def __init__(self, backbone='resnet50', pretrained=True):
         super(Resnet, self).__init__()
         ##assert backbone in ENCODER_RESNET
-        self.encoder = getattr(models, backbone)(pretrained=pretrained)
+        if pretrained:
+            if backbone == 'resnet101':
+                weights = ResNet101_Weights.IMAGENET1K_V1
+            else:
+                weights = ResNet50_Weights.IMAGENET1K_V1
+        else:
+            weights = None
+        self.encoder = getattr(models, backbone)(weights=weights)
         del self.encoder.fc, self.encoder.avgpool
 
     def forward(self, x):

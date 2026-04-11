@@ -61,18 +61,18 @@ def approx_shape(data, fp_threshold=0.5, epsilon_b=0.005, rel_threshold=0.5, ret
     data_thresh = np.uint8(data_thresh)
 
     w = data.shape[0]
-    h = data.shape[1] 
-    
-    data_cnt, data_heri = cv2.findContours(data_thresh, 1, 2)##CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE
-    ##data_cnt, data_heri = cv2.findContours(data_thresh, 0, 2)##CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE
-        
+    h = data.shape[1]
+
+    data_cnt, data_heri = cv2.findContours(data_thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    ##data_cnt, data_heri = cv2.findContours(data_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
     reliability = 0.0
 
     approx = np.empty([1, 1, 2])
-    
-    if(len(data_cnt)>0):    
+
+    if(len(data_cnt)>0):
         # Find the the largest connected component and its bounding box
-        data_cnt.sort(key=lambda x: cv2.contourArea(x), reverse=True)
+        data_cnt = sorted(data_cnt, key=lambda x: cv2.contourArea(x), reverse=True)
         
         area0 = cv2.contourArea(data_cnt[0])
 
@@ -429,15 +429,3 @@ def np_xy2coor(xy, z=50, coorW=1024, coorH=512, floorW=1024, floorH=512):
     coory = (-v / PI + 0.5) * coorH - 0.5
 
     return np.hstack([coorx[:, None], coory[:, None]])
-
-
-               
-          
-     
-
-
-
-
-
-                
-     

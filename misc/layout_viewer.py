@@ -55,7 +55,7 @@ def create_ceiling_floor_mask(cor_id, H, W):
     f_bon = np.interp(np.arange(W), f_pts[:, 0], f_pts[:, 1])
 
     # Generate mask
-    mask = np.zeros((H, W), np.bool)
+    mask = np.zeros((H, W), np.bool_)
     for i in range(W):
         u = max(0, int(round(c_bon[i])) + 1)
         b = min(W, int(round(f_bon[i])))
@@ -242,9 +242,9 @@ def show_3D_layout(img_name, layout_json,camera_height):
 
     # Launch point cloud viewer
     print('Showing %d of points...' % len(all_rgb))
-    pcd = open3d.PointCloud()
-    pcd.points = open3d.Vector3dVector(all_xyz)
-    pcd.colors = open3d.Vector3dVector(all_rgb)
+    pcd = open3d.geometry.PointCloud()
+    pcd.points = open3d.utility.Vector3dVector(all_xyz)
+    pcd.colors = open3d.utility.Vector3dVector(all_rgb)
 
     # Visualize result
     tobe_visualize = [pcd]
@@ -336,9 +336,9 @@ if __name__ == '__main__':
 
     # Launch point cloud viewer
     print('Showing %d of points...' % len(all_rgb))
-    pcd = open3d.PointCloud()
-    pcd.points = open3d.Vector3dVector(all_xyz)
-    pcd.colors = open3d.Vector3dVector(all_rgb)
+    pcd = open3d.geometry.PointCloud()
+    pcd.points = open3d.utility.Vector3dVector(all_xyz)
+    pcd.colors = open3d.utility.Vector3dVector(all_rgb)
 
     # Visualize result
     tobe_visualize = [pcd]
