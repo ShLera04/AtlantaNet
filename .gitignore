@@ -6,3 +6,5 @@ misc/__pycache__/
 misc/eval.py
 data/
 unn_panorams/
+.venv/
+venv/
